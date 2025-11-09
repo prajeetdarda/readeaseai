@@ -274,15 +274,15 @@ export default function AutismPDFLearner() {
   const renderSummary = () => {
     if (!lesson?.['Summary']?.length) return null;
     return (
-      <section className="space-y-2">
-        <div className="flex items-center gap-2">
-          <h2 className="text-xl font-bold text-blue-800">Summary</h2>
+      <section className="space-y-3">
+        <div className="flex items-center gap-2 flex-wrap">
+          <h2 className="text-2xl font-bold text-green-800">Summary</h2>
           <Pill>overview</Pill>
           <SpeakButton id="summary" getText={() => summaryText} speech={speech} />
         </div>
-        <ul className="list-disc pl-6 space-y-1">
+        <ul className="list-disc pl-6 space-y-2">
           {lesson['Summary'].map((b, i) => (
-            <li key={i} className="leading-7">{b}</li>
+            <li key={i} className="leading-7 text-gray-800">{b}</li>
           ))}
         </ul>
       </section>
@@ -293,8 +293,8 @@ export default function AutismPDFLearner() {
     if (!lesson?.['Vocabulary']?.length) return null;
     return (
       <section className="space-y-3">
-        <div className="flex items-center gap-2">
-          <h2 className="text-xl font-bold text-blue-800">Vocabulary</h2>
+        <div className="flex items-center gap-2 flex-wrap">
+          <h2 className="text-2xl font-bold text-green-800">Vocabulary</h2>
           <Pill>3 terms</Pill>
           <SpeakButton id="vocab" getText={() => vocabularyText} speech={speech} />
         </div>
@@ -330,8 +330,8 @@ export default function AutismPDFLearner() {
 
     return (
       <section className="space-y-6">
-        <div className="flex items-center gap-2">
-          <h2 className="text-xl font-bold text-blue-800">Check Your Understanding</h2>
+        <div className="flex items-center gap-2 flex-wrap">
+          <h2 className="text-2xl font-bold text-green-800">Check Your Understanding</h2>
           <Pill>practice</Pill>
           <SpeakButton id="questions" getText={() => questionsText} speech={speech} />
         </div>
@@ -507,18 +507,18 @@ export default function AutismPDFLearner() {
     const d = lesson?.['Draw-it'];
     if (!d) return null;
     return (
-      <section className="space-y-2">
-        <div className="flex items-center gap-2">
-          <h2 className="text-xl font-bold text-blue-800">Draw-it (Make a simple diagram)</h2>
+      <section className="space-y-3">
+        <div className="flex items-center gap-2 flex-wrap">
+          <h2 className="text-2xl font-bold text-green-800">Draw-it (Make a simple diagram)</h2>
           <Pill>visual</Pill>
           <SpeakButton id="drawit" getText={() => drawItText} speech={speech} />
         </div>
-        <p><span className="font-semibold">Title:</span> {d.title}</p>
-        <p className="font-semibold">Labels:</p>
-        <ul className="list-disc pl-6">
-          {d.labels.map((l, i) => <li key={i}>{l}</li>)}
+        <p className="text-gray-800"><span className="font-semibold text-green-700">Title:</span> {d.title}</p>
+        <p className="font-semibold text-green-700">Labels:</p>
+        <ul className="list-disc pl-6 space-y-1">
+          {d.labels.map((l, i) => <li key={i} className="text-gray-800">{l}</li>)}
         </ul>
-        <p><span className="font-semibold">Caption:</span> {d.caption}</p>
+        <p className="text-gray-800"><span className="font-semibold text-green-700">Caption:</span> {d.caption}</p>
       </section>
     );
   };
@@ -527,19 +527,19 @@ export default function AutismPDFLearner() {
     const rp = lesson?.['Review Plan'];
     if (!rp?.length) return null;
     return (
-      <section className="space-y-2">
-        <div className="flex items-center gap-2">
-          <h2 className="text-xl font-bold text-blue-800">Review Plan</h2>
+      <section className="space-y-3">
+        <div className="flex items-center gap-2 flex-wrap">
+          <h2 className="text-2xl font-bold text-green-800">Review Plan</h2>
           <Pill>spaced</Pill>
           <SpeakButton id="review" getText={() => reviewPlanText} speech={speech} />
         </div>
-        <ul className="list-disc pl-6">
+        <ul className="list-disc pl-6 space-y-2">
           {rp.map((r, i) => (
-            <li key={i}>
-              <span className="font-semibold">{r.when}</span> — {r.minutes} min
+            <li key={i} className="text-gray-800">
+              <span className="font-semibold text-green-700">{r.when}</span> — {r.minutes} min
               {r.plan?.length ? (
-                <ul className="list-disc pl-6 mt-1">
-                  {r.plan.map((p, j) => <li key={j}>{p}</li>)}
+                <ul className="list-disc pl-6 mt-2 space-y-1">
+                  {r.plan.map((p, j) => <li key={j} className="text-gray-700">{p}</li>)}
                 </ul>
               ) : null}
             </li>
@@ -550,36 +550,50 @@ export default function AutismPDFLearner() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-          <div className="flex items-center gap-3 mb-2">
-            <BookOpen className="w-8 h-8 text-blue-600" />
-            <h1 className="text-3xl font-bold text-gray-800">Learning Assistant</h1>
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-teal-50 p-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="bg-white rounded-xl shadow-xl border-l-4 border-green-500 p-8 mb-8">
+          <div className="flex items-center gap-4 mb-3">
+            <div className="p-3 bg-green-100 rounded-xl">
+              <BookOpen className="w-10 h-10 text-green-600" />
+            </div>
+            <div>
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">Autism Learning Assistant</h1>
+              <p className="text-gray-600 text-lg mt-1">Structured, visual learning tailored for autism support</p>
+            </div>
           </div>
-          <p className="text-gray-600 text-lg">Upload a PDF and learn step by step</p>
+          <p className="text-gray-700 leading-relaxed mt-3">
+            Upload any PDF document to receive a structured learning experience with simplified summaries, visual vocabulary aids,
+            interactive questions with immediate feedback, and a spaced review plan. Includes text-to-speech for all sections to support different learning preferences.
+          </p>
         </div>
 
         {!lesson && (
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <div className="mb-6">
-              <label className="block text-lg font-semibold text-gray-700 mb-2">Your Age</label>
+          <div className="bg-white rounded-xl shadow-xl p-10">
+            <div className="mb-8">
+              <label className="block text-lg font-semibold text-gray-800 mb-3">
+                <span className="flex items-center gap-2">
+                  Your Age
+                  <span className="text-sm font-normal text-gray-500">(helps personalize content)</span>
+                </span>
+              </label>
               <input
                 type="number"
                 value={age}
                 onChange={(e) => setAge(e.target.value)}
-                className="w-32 px-4 py-2 border-2 border-gray-300 rounded-lg text-lg"
+                className="w-40 px-4 py-3 border-2 border-gray-300 rounded-xl text-lg focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-200 transition-all"
                 min="1"
                 max="100"
               />
             </div>
 
-            <div className="border-4 border-dashed border-blue-300 rounded-lg p-12 text-center">
-              <Upload className="w-16 h-16 text-blue-500 mx-auto mb-4" />
+            <div className="border-4 border-dashed border-green-300 rounded-xl p-16 text-center bg-gradient-to-br from-green-50 to-teal-50 hover:border-green-400 transition-colors">
+              <Upload className="w-20 h-20 text-green-600 mx-auto mb-4" />
               <label className="cursor-pointer">
-                <span className="text-xl font-semibold text-blue-600 hover:text-blue-700">
-                  Click to upload PDF
+                <span className="text-2xl font-semibold text-green-700 hover:text-green-800 transition-colors">
+                  Click to upload your PDF document
                 </span>
+                <p className="text-gray-600 mt-2">Upload any educational material to get started</p>
                 <input
                   type="file"
                   accept=".pdf"
@@ -589,33 +603,33 @@ export default function AutismPDFLearner() {
               </label>
 
               {file && (
-                <div className="mt-4 flex items-center justify-center gap-2 text-green-600">
-                  <CheckCircle2 className="w-6 h-6" />
-                  <span className="text-lg font-medium">{file.name}</span>
+                <div className="mt-6 flex items-center justify-center gap-3 bg-white rounded-lg p-4 shadow-sm">
+                  <CheckCircle2 className="w-7 h-7 text-green-600" />
+                  <span className="text-lg font-semibold text-gray-800">{file.name}</span>
                 </div>
               )}
             </div>
 
             {error && (
-              <div className="mt-4 p-4 bg-red-100 border-2 border-red-300 rounded-lg">
-                <p className="text-red-700 text-lg">{error}</p>
+              <div className="mt-6 p-5 bg-red-50 border-2 border-red-300 rounded-xl">
+                <p className="text-red-700 text-lg font-medium">{error}</p>
               </div>
             )}
 
             <button
               onClick={generateLesson}
               disabled={!file || loading}
-              className="w-full mt-6 py-4 bg-blue-600 text-white rounded-lg text-xl font-semibold hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full mt-8 py-5 bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-xl text-xl font-bold hover:from-green-700 hover:to-teal-700 disabled:from-gray-400 disabled:to-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transition-all"
             >
               {loading ? (
                 <>
-                  <Loader2 className="w-6 h-6 animate-spin" />
-                  Creating your lesson...
+                  <Loader2 className="w-7 h-7 animate-spin" />
+                  Creating your personalized lesson...
                 </>
               ) : (
                 <>
-                  <FileText className="w-6 h-6" />
-                  Start Learning
+                  <FileText className="w-7 h-7" />
+                  Start Learning Journey
                 </>
               )}
             </button>
@@ -624,13 +638,13 @@ export default function AutismPDFLearner() {
 
         {lesson && (
           <div className="space-y-6">
-            <div className="bg-white rounded-lg shadow-lg p-8">{renderSummary()}</div>
-            <div className="bg-white rounded-lg shadow-lg p-8">{renderVocabulary()}</div>
-            <div className="bg-white rounded-lg shadow-lg p-8">{renderQuestions()}</div>
-            <div className="bg-white rounded-lg shadow-lg p-8">{renderDrawIt()}</div>
-            <div className="bg-white rounded-lg shadow-lg p-8">{renderReviewPlan()}</div>
+            <div className="bg-white rounded-xl shadow-xl border-t-4 border-green-500 p-8">{renderSummary()}</div>
+            <div className="bg-white rounded-xl shadow-xl border-t-4 border-teal-500 p-8">{renderVocabulary()}</div>
+            <div className="bg-white rounded-xl shadow-xl border-t-4 border-green-600 p-8">{renderQuestions()}</div>
+            <div className="bg-white rounded-xl shadow-xl border-t-4 border-emerald-500 p-8">{renderDrawIt()}</div>
+            <div className="bg-white rounded-xl shadow-xl border-t-4 border-teal-600 p-8">{renderReviewPlan()}</div>
 
-            <div className="flex gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-4">
               <button
                 onClick={() => {
                   setLesson(null);
@@ -638,7 +652,7 @@ export default function AutismPDFLearner() {
                   setCurrentSection(0);
                   resetQA();
                 }}
-                className="flex-1 py-4 bg-gray-600 text-white rounded-lg text-xl font-semibold hover:bg-gray-700"
+                className="py-5 bg-gray-600 text-white rounded-xl text-xl font-semibold hover:bg-gray-700 shadow-lg hover:shadow-xl transition-all"
               >
                 Upload New PDF
               </button>
@@ -646,22 +660,22 @@ export default function AutismPDFLearner() {
               <button
                 onClick={getNextSection}
                 disabled={loading}
-                className="flex-1 py-4 bg-green-600 text-white rounded-lg text-xl font-semibold hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="py-5 bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-xl text-xl font-bold hover:from-green-700 hover:to-teal-700 disabled:from-gray-400 disabled:to-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transition-all"
               >
                 {loading ? (
                   <>
-                    <Loader2 className="w-6 h-6 animate-spin" />
-                    Loading...
+                    <Loader2 className="w-7 h-7 animate-spin" />
+                    Loading next section...
                   </>
                 ) : (
-                  'Next Section'
+                  'Continue to Next Section'
                 )}
               </button>
             </div>
 
             {error && (
-              <div className="p-4 bg-red-100 border-2 border-red-300 rounded-lg">
-                <p className="text-red-700 text-lg">{error}</p>
+              <div className="p-5 bg-red-50 border-2 border-red-300 rounded-xl">
+                <p className="text-red-700 text-lg font-medium">{error}</p>
               </div>
             )}
           </div>

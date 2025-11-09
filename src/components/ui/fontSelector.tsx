@@ -27,12 +27,14 @@ type Font = {
 export function FontSelector({
   fonts,
   onChange,
+  defaultValue = "",
 }: {
   fonts: Font[];
   onChange: (font: string) => void;
+  defaultValue?: string;
 }) {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState(defaultValue);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -41,10 +43,10 @@ export function FontSelector({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className="w-full justify-between border-2 border-gray-300 hover:border-orange-400"
         >
           {value ? (
-            <span className={cn(value, "truncate")}>
+            <span className={cn(value, "truncate font-medium")}>
               {fonts.find((font) => font.value === value)?.label}
             </span>
           ) : (
@@ -53,7 +55,7 @@ export function FontSelector({
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-full p-0">
         <Command>
           <CommandInput placeholder="Search font..." />
           <CommandList>

@@ -14,6 +14,8 @@ import localFont from "next/font/local";
 import { useEffect, useState } from "react";
 import { Slider } from "./ui/slider";
 import { Button } from "@/components/ui/button";
+import { Home, Settings2 } from "lucide-react";
+import Link from "next/link";
 
 const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
 const atkinsonHyperlegible = Atkinson_Hyperlegible({
@@ -25,23 +27,8 @@ const openDyslexic = localFont({
 });
 
 export function AppSidebar() {
-  const [font, setFont] = useState("Sans");
+  const [font, setFont] = useState(atkinsonHyperlegible.className);
   const [spacing, setSpacing] = useState(1.5);
-  const [theme, setTheme] = useState("sepia");
-
-  const themes = [
-    { id: "sepia", label: "Sepia", bg: "#FDF6EC", text: "#2B2B2B" },
-    { id: "cream", label: "Cream", bg: "#FFFBEA", text: "#1A1A1A" },
-    { id: "dark", label: "Dark", bg: "#444444", text: "#EEEEEE" },
-  ];
-
-  const currentTheme = themes.find((t) => t.id === theme)!;
-
-  // Apply background/text colors globally
-  useEffect(() => {
-    document.body.style.backgroundColor = currentTheme.bg;
-    document.body.style.color = currentTheme.text;
-  }, [currentTheme]);
 
   // Apply letter spacing globally
   useEffect(() => {
@@ -72,32 +59,47 @@ export function AppSidebar() {
   }, [font]);
 
   return (
-    <Sidebar className={`bg-[${currentTheme.bg}] text-[${currentTheme.text}]`}>
-      <SidebarHeader
-        className="text-center py-4 text-xl font-bold"
-        style={{ color: currentTheme.text }}
-      >
-        View Settings
+    <Sidebar className="bg-white border-r-2 border-gray-200">
+      <SidebarHeader className="py-4 px-4 border-b-2 border-gray-200">
+        <Button asChild className="w-full bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-700 hover:to-yellow-700 text-white font-bold shadow-lg">
+          <Link href="/" className="flex items-center justify-center gap-2">
+            <Home size={20} />
+            Back to Home
+          </Link>
+        </Button>
       </SidebarHeader>
 
-      <SidebarContent className="space-y-6">
+      <SidebarContent className="p-4 space-y-6">
+        {/* HEADER */}
+        <div className="flex items-center gap-2 pb-2">
+          <Settings2 className="w-5 h-5 text-orange-600" />
+          <h2 className="text-lg font-bold text-gray-900">Reading Settings</h2>
+        </div>
+
         {/* FONT */}
         <SidebarGroup>
-          <SidebarGroupLabel style={{ color: currentTheme.text }}>
-            Font
+          <SidebarGroupLabel className="text-gray-900 font-semibold text-base mb-3">
+            Font Style
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <FontSelector fonts={[
-              { label: "Sans", value: geistSans.className },
-              { label: "OpenDyslexic", value: openDyslexic.className },
-              { label: "Atkinson Hyperlegible", value: atkinsonHyperlegible.className },
-            ]} onChange={(font) => setFont(font)} />
+            <FontSelector
+              fonts={[
+                { label: "Atkinson Hyperlegible", value: atkinsonHyperlegible.className },
+                { label: "OpenDyslexic", value: openDyslexic.className },
+                { label: "Standard Sans", value: geistSans.className },
+              ]}
+              onChange={(font) => setFont(font)}
+              defaultValue={atkinsonHyperlegible.className}
+            />
           </SidebarGroupContent>
+          <p className="text-xs text-gray-600 mt-2">
+            Choose a font optimized for readability
+          </p>
         </SidebarGroup>
 
         {/* LETTER SPACING */}
         <SidebarGroup>
-          <SidebarGroupLabel style={{ color: currentTheme.text }}>
+          <SidebarGroupLabel className="text-gray-900 font-semibold text-base mb-3">
             Letter Spacing
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -107,44 +109,39 @@ export function AppSidebar() {
               step={0.5}
               value={[spacing]}
               onValueChange={(val) => setSpacing(val[0])}
+              className="mb-2"
             />
-            <p style={{ color: currentTheme.text }} className="text-xs mt-1">
-              Current: {spacing}px
-            </p>
+            <div className="flex justify-between items-center">
+              <p className="text-sm text-gray-700 font-medium">
+                Current: {spacing}px
+              </p>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setSpacing(1.5)}
+                className="text-xs"
+              >
+                Reset
+              </Button>
+            </div>
           </SidebarGroupContent>
+          <p className="text-xs text-gray-600 mt-2">
+            Adjust spacing between letters for comfort
+          </p>
         </SidebarGroup>
 
-        {/* THEME */}
-        <SidebarGroup>
-          <SidebarGroupLabel style={{ color: currentTheme.text }}>
-            Theme
-          </SidebarGroupLabel>
-          <SidebarGroupContent className="flex flex-col gap-2">
-            {themes.map((t) => (
-              <Button
-                key={t.id}
-                variant={theme === t.id ? "default" : "outline"}
-                onClick={() => setTheme(t.id)}
-                style={{
-                  backgroundColor: theme === t.id ? t.bg : "transparent",
-                  color: theme === t.id ? t.text : currentTheme.text,
-                  borderColor: currentTheme.text,
-                }}
-                className="justify-start"
-              >
-                <div
-                  className="w-4 h-4 rounded-full mr-2 border"
-                  style={{ backgroundColor: t.bg }}
-                />
-                {t.label}
-              </Button>
-            ))}
-          </SidebarGroupContent>
-        </SidebarGroup>
+        {/* INFO BOX */}
+        <div className="p-4 bg-gradient-to-br from-orange-50 to-yellow-50 rounded-xl border-2 border-orange-200">
+          <p className="text-sm text-gray-700 leading-relaxed">
+            <strong>💡 Tip:</strong> Atkinson Hyperlegible font and moderate spacing work best for most readers with dyslexia.
+          </p>
+        </div>
       </SidebarContent>
 
-      <SidebarFooter className="p-4 text-xs" style={{ color: currentTheme.text }}>
-        Accessibility-first reading experience
+      <SidebarFooter className="p-4 border-t-2 border-gray-200">
+        <p className="text-xs text-gray-600 text-center">
+          Accessibility-focused reading
+        </p>
       </SidebarFooter>
     </Sidebar>
   );

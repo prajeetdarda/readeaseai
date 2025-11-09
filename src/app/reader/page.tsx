@@ -223,96 +223,97 @@ export default function ReaderPage() {
   }
 
   return (
-    <div className="min-h-screen bg-blue-50">
-      
-      <div className="sticky top-0 z-50 bg-white shadow-lg">
-        <div className="max-w-4xl mx-auto p-6">
-          
-          <div className="flex justify-between items-center mb-4">
-            <button
-              onClick={() => {
-                stopNarration();
-                router.push('/');
-              }}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
-            >
-              <ArrowLeft size={20} />
-              Back
-            </button>
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50">
 
+      <div className="sticky top-0 z-50 bg-white shadow-xl border-b-4 border-purple-500">
+        <div className="max-w-7xl mx-auto px-6 py-3">
+
+          <div className="flex justify-between items-center mb-3">
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-lg">
-                <Clock size={20} className="text-blue-500" />
-                <span className="font-mono text-xl font-bold">
+              <button
+                onClick={() => {
+                  stopNarration();
+                  router.push('/');
+                }}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium transition-colors text-sm"
+              >
+                <ArrowLeft size={18} />
+                Back
+              </button>
+              <div>
+                <h1 className="text-lg font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  ADHD Focus Reader
+                </h1>
+                <p className="text-xs text-gray-600">Enhanced focus and retention</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 bg-purple-50 border border-purple-200 px-3 py-1.5 rounded-lg">
+                <Clock size={18} className="text-purple-600" />
+                <span className="font-mono text-lg font-bold text-purple-900">
                   {minutes}:{seconds.toString().padStart(2, '0')}
                 </span>
               </div>
               <button
                 onClick={() => setIsTimerActive(!isTimerActive)}
-                className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                className="p-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all"
+                title={isTimerActive ? 'Pause Timer' : 'Start Timer'}
               >
-                {isTimerActive ? <PauseCircle size={24} /> : <PlayCircle size={24} />}
+                {isTimerActive ? <PauseCircle size={20} /> : <PlayCircle size={20} />}
               </button>
             </div>
           </div>
 
           {/* AI Narrator Controls */}
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-4 mb-4 border-2 border-purple-200">
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-3 mb-3 border border-purple-200">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Volume2 className="text-purple-600" size={24} />
-                <div>
-                  <div className="font-bold text-gray-900">AI Narrator (OpenAI)</div>
-                  <div className="text-sm text-gray-600">
-                    {isLoading ? '⏳ Generating audio...' : isNarrating ? '🔊 Playing...' : '🔇 Ready to read'}
-                  </div>
-                </div>
+                <Volume2 className="text-purple-600" size={20} />
+                <div className="font-semibold text-sm text-gray-900">AI Narrator</div>
               </div>
 
               <div className="flex items-center gap-3">
                 {/* Voice Selection */}
-                <div className="flex items-center gap-2">
-                  <label className="text-sm font-medium text-gray-700">Voice:</label>
-                  <select
-                    value={voice}
-                    onChange={(e) => setVoice(e.target.value as any)}
-                    className="px-3 py-1 border-2 border-gray-300 rounded-lg text-sm font-medium"
-                    disabled={isNarrating || isLoading}
-                  >
-                    <option value="alloy">Alloy (Neutral)</option>
-                    <option value="echo">Echo (Male)</option>
-                    <option value="fable">Fable (British)</option>
-                    <option value="onyx">Onyx (Deep)</option>
-                    <option value="nova">Nova (Female)</option>
-                    <option value="shimmer">Shimmer (Soft)</option>
-                  </select>
-                </div>
+                <select
+                  value={voice}
+                  onChange={(e) => setVoice(e.target.value as any)}
+                  className="px-3 py-1.5 border border-purple-300 rounded-lg text-xs font-medium bg-white focus:border-purple-500 focus:outline-none"
+                  disabled={isNarrating || isLoading}
+                >
+                  <option value="alloy">Alloy</option>
+                  <option value="echo">Echo</option>
+                  <option value="fable">Fable</option>
+                  <option value="onyx">Onyx</option>
+                  <option value="nova">Nova</option>
+                  <option value="shimmer">Shimmer</option>
+                </select>
 
                 {/* Play/Stop Button */}
                 <button
                   onClick={startNarration}
                   disabled={isLoading}
-                  className={`px-6 py-3 rounded-lg font-bold text-lg transition-all flex items-center gap-2 ${
+                  className={`px-4 py-1.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-2 ${
                     isLoading
                       ? 'bg-gray-400 cursor-not-allowed'
                       : isNarrating
                       ? 'bg-red-500 hover:bg-red-600'
-                      : 'bg-purple-500 hover:bg-purple-600'
+                      : 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700'
                   } text-white`}
                 >
                   {isLoading ? (
                     <>
-                      <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
-                      Loading...
+                      <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
+                      <span className="text-xs">Loading...</span>
                     </>
                   ) : isNarrating ? (
                     <>
-                      <VolumeX size={24} />
+                      <VolumeX size={16} />
                       Stop
                     </>
                   ) : (
                     <>
-                      <Volume2 size={24} />
+                      <Volume2 size={16} />
                       Read Aloud
                     </>
                   )}
@@ -321,79 +322,79 @@ export default function ReaderPage() {
             </div>
           </div>
 
-          <div className="mb-4">
+          <div className="bg-white rounded-lg p-3 border border-gray-200">
             <div className="flex justify-between text-sm mb-2">
-              <span className="font-medium">Your Progress</span>
-              <span className="font-bold text-blue-600">
+              <span className="font-semibold text-gray-700">Progress</span>
+              <span className="font-bold text-purple-700">
                 {completedChunks.size} / {chunks.length} sections
               </span>
             </div>
-            <div className="h-4 bg-gray-200 rounded-full overflow-hidden">
+            <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 transition-all duration-500"
+                className="h-full bg-gradient-to-r from-purple-500 via-pink-500 to-purple-600 transition-all duration-500"
                 style={{ width: `${progress}%` }}
               />
             </div>
-          </div>
 
-          <div className="flex justify-around">
-            {[
-              { threshold: 25, emoji: '🌱', label: 'Started' },
-              { threshold: 50, emoji: '🌿', label: 'Halfway!' },
-              { threshold: 75, emoji: '🌳', label: 'Almost!' },
-              { threshold: 100, emoji: '🏆', label: 'Complete!' }
-            ].map(({ threshold, emoji, label }) => (
-              <div
-                key={threshold}
-                className={`text-center transition-all duration-500 ${
-                  progress >= threshold 
-                    ? 'scale-110 opacity-100' 
-                    : 'opacity-30 grayscale'
-                }`}
-              >
-                <div className="text-4xl mb-1">{emoji}</div>
-                <div className="text-xs font-medium">{label}</div>
-              </div>
-            ))}
+            <div className="flex justify-around mt-3">
+              {[
+                { threshold: 25, emoji: '🌱', label: 'Started' },
+                { threshold: 50, emoji: '🌿', label: 'Halfway' },
+                { threshold: 75, emoji: '🌳', label: 'Almost' },
+                { threshold: 100, emoji: '🏆', label: 'Done' }
+              ].map(({ threshold, emoji, label }) => (
+                <div
+                  key={threshold}
+                  className={`text-center transition-all duration-500 ${
+                    progress >= threshold
+                      ? 'scale-105 opacity-100'
+                      : 'opacity-30 grayscale'
+                  }`}
+                >
+                  <div className="text-2xl">{emoji}</div>
+                  <div className="text-xs font-medium text-gray-600">{label}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-3xl mx-auto p-8">
+      <div className="max-w-6xl mx-auto px-6 py-10">
         {chunks.map((chunk, index) => {
           const isActive = index === currentChunk;
           const isCompleted = completedChunks.has(index);
-          
+
           return (
             <div
               key={index}
               className={`mb-12 transition-all duration-500 ${
-                isActive 
-                  ? 'scale-100 opacity-100' 
+                isActive
+                  ? 'scale-100 opacity-100'
                   : 'scale-95 opacity-20 blur-sm pointer-events-none'
               }`}
             >
-              <div className={`bg-white rounded-2xl shadow-2xl p-8 ${
-                isActive ? 'ring-4 ring-blue-400' : ''
+              <div className={`bg-white rounded-2xl shadow-2xl p-10 border-4 ${
+                isActive ? 'border-purple-500' : 'border-gray-200'
               } ${
                 isCompleted ? 'border-l-8 border-green-500' : ''
               }`}>
                 
-                <div className="flex justify-between items-center mb-6">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+                <div className="flex justify-between items-center mb-8">
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg">
                       {index + 1}
                     </div>
                     <div>
-                      <div className="font-bold text-lg">Section {index + 1}</div>
-                      <div className="text-sm text-gray-500">⏱️ 2-3 min read</div>
+                      <div className="font-bold text-2xl text-gray-900">Section {index + 1}</div>
+                      <div className="text-base text-gray-600 font-medium">⏱️ 2-3 min focused read</div>
                     </div>
                   </div>
-                  
+
                   {isCompleted && (
-                    <div className="flex items-center gap-2 text-green-600 font-bold">
-                      <CheckCircle size={32} />
-                      <span>Done!</span>
+                    <div className="flex items-center gap-3 bg-green-100 px-5 py-3 rounded-xl border-2 border-green-300">
+                      <CheckCircle size={36} className="text-green-600" />
+                      <span className="font-bold text-lg text-green-700">Completed!</span>
                     </div>
                   )}
                 </div>
@@ -442,9 +443,10 @@ export default function ReaderPage() {
                 {isActive && !isCompleted && (
                   <button
                     onClick={() => handleChunkComplete(index)}
-                    className="mt-8 w-full py-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl font-bold text-lg hover:from-green-600 hover:to-emerald-600 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+                    className="mt-10 w-full py-5 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl font-bold text-xl hover:from-green-600 hover:to-emerald-600 transition-all shadow-xl hover:shadow-2xl transform hover:scale-105 flex items-center justify-center gap-3"
                   >
-                    ✅ Got it! {index < chunks.length - 1 ? 'Next section' : 'Complete!'}
+                    <CheckCircle size={28} />
+                    {index < chunks.length - 1 ? 'Mark as Complete & Continue' : 'Complete Reading!'}
                   </button>
                 )}
               </div>

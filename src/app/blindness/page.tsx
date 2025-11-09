@@ -287,105 +287,128 @@ export default function Blindness() {
 
   return (
     <>
-      <div className="flex justify-center items-center w-full min-h-screen p-4">
-        <Card className="w-2/3 min-h-[66vh] border-2 bg-[#FFFAEF] text-[#020402]">
-          <CardHeader className="text-start">
-            <CardTitle className="text-4xl pb-8">Blindness Support</CardTitle>
-            <CardDescription className="text-xl">
-              Upload PDF for conversational narration
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 p-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="bg-white rounded-xl shadow-xl border-l-4 border-blue-500 p-8 mb-8">
+            <div className="flex items-center gap-4 mb-3">
+              <div className="p-3 bg-blue-100 rounded-xl">
+                <svg className="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+              </div>
+              <div>
+                <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                  Visual Accessibility Assistant
+                </h1>
+                <p className="text-gray-600 text-lg mt-1">AI-powered conversational reading support</p>
+              </div>
+            </div>
+            <p className="text-gray-700 leading-relaxed mt-3">
+              Upload any PDF document to receive an intelligent, conversational narration with full voice interaction.
+              Ask questions, get clarifications, and engage with your content through natural conversation powered by advanced AI.
+            </p>
+          </div>
+
+          <Card className="border-2 border-gray-200 shadow-xl bg-white">
+          <CardHeader className="text-start border-b border-gray-200">
+            <CardTitle className="text-2xl font-bold text-gray-900">Upload Your Document</CardTitle>
+            <CardDescription className="text-base text-gray-600">
+              Upload a PDF to start your accessible reading experience
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex gap-4 items-center">
-              <Input
-                type="file"
-                accept=".pdf"
-                onChange={handleFileChange}
-                className="flex-1"
-              />
-              <Button onClick={handleUpload} disabled={loading || !file}>
-                {loading ? "Processing..." : "Upload & Convert"}
-              </Button>
+          <CardContent className="space-y-6 p-8">
+            <div className="border-4 border-dashed border-blue-300 rounded-xl p-12 text-center bg-gradient-to-br from-blue-50 to-cyan-50 hover:border-blue-400 transition-colors">
+              <div className="flex flex-col items-center gap-4">
+                <svg className="w-16 h-16 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+                <Input
+                  type="file"
+                  accept=".pdf"
+                  onChange={handleFileChange}
+                  className="max-w-md"
+                />
+                {file && (
+                  <p className="text-sm font-medium text-green-600 flex items-center gap-2">
+                    <span className="text-xl">✓</span> {file.name}
+                  </p>
+                )}
+                <Button
+                  onClick={handleUpload}
+                  disabled={loading || !file}
+                  className="px-8 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold text-lg rounded-xl shadow-lg"
+                >
+                  {loading ? "Processing..." : "Upload & Start Reading"}
+                </Button>
+              </div>
             </div>
 
             {loading && (
-              <div className="text-center py-8">
-                <p className="text-lg">Processing your PDF...</p>
+              <div className="text-center py-12 bg-blue-50 rounded-xl border-2 border-blue-200">
+                <div className="animate-spin w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full mx-auto mb-4"></div>
+                <p className="text-xl font-semibold text-blue-900">Processing your PDF...</p>
+                <p className="text-sm text-gray-600 mt-2">This may take a moment</p>
               </div>
             )}
 
             {narration && (
-              <div className="mt-6 space-y-4">
-                <div className="p-4 bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg border-2 border-blue-200">
-                  <h4 className="text-xl font-semibold mb-3">🎤 Push to Talk</h4>
+              <div className="mt-8 space-y-6">
+                <div className="p-6 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl border-2 border-blue-300 shadow-md">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 bg-blue-200 rounded-lg">
+                      <svg className="w-6 h-6 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                      </svg>
+                    </div>
+                    <h4 className="text-2xl font-bold text-gray-900">Voice Interaction</h4>
+                  </div>
 
                   {!isListening && !isProcessing && !isPlaying && (
-                    <p className="text-sm text-gray-600 mb-4">
-                      Press <kbd className="px-2 py-1 bg-white border rounded">SPACEBAR</kbd> to start recording
-                    </p>
+                    <div className="bg-white rounded-lg p-5 border-2 border-blue-200">
+                      <p className="text-base text-gray-700 mb-3">
+                        Press and hold <kbd className="px-3 py-1.5 bg-gradient-to-br from-gray-100 to-gray-200 border-2 border-gray-300 rounded-lg font-bold text-blue-700 shadow-sm">SPACEBAR</kbd> to ask a question
+                      </p>
+                      <p className="text-sm text-gray-600">Ask anything about the document content</p>
+                    </div>
                   )}
 
                   {isListening && (
-                    <div className="mb-3">
-                      <div className="flex items-center gap-2 p-3 bg-red-50 rounded border-2 border-red-300">
-                        <div className="w-4 h-4 bg-red-500 rounded-full animate-pulse"></div>
-                        <span className="font-medium text-red-700">🔴 Recording...</span>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3 p-5 bg-red-50 rounded-xl border-3 border-red-400 shadow-lg">
+                        <div className="w-5 h-5 bg-red-500 rounded-full animate-pulse"></div>
+                        <span className="font-bold text-lg text-red-700">🔴 Recording Your Question...</span>
                       </div>
-                      <p className="text-xs text-gray-600 mt-2">
-                        Release <kbd className="px-1.5 py-0.5 bg-white border rounded text-xs">SPACEBAR</kbd> to send
+                      <p className="text-sm text-gray-700 text-center">
+                        Release <kbd className="px-2 py-1 bg-white border-2 border-gray-400 rounded font-semibold text-xs">SPACEBAR</kbd> when done speaking
                       </p>
                     </div>
                   )}
 
                   {(isProcessing || isPlaying) && (
-                    <div className="mb-3">
-                      <div className="flex items-center gap-2 p-3 bg-green-50 rounded border-2 border-green-300">
-                        <div className="w-4 h-4 border-2 border-green-600 border-t-transparent rounded-full animate-spin"></div>
-                        <span className="font-medium text-green-700">🔊 Speaking...</span>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3 p-5 bg-green-50 rounded-xl border-3 border-green-400 shadow-lg">
+                        <div className="w-5 h-5 border-3 border-green-600 border-t-transparent rounded-full animate-spin"></div>
+                        <span className="font-bold text-lg text-green-700">🔊 AI Assistant Speaking...</span>
                       </div>
-                      <p className="text-xs text-gray-600 mt-2">
-                        Press <kbd className="px-1.5 py-0.5 bg-white border rounded text-xs">SPACEBAR</kbd> to cancel
+                      <p className="text-sm text-gray-700 text-center">
+                        Press <kbd className="px-2 py-1 bg-white border-2 border-gray-400 rounded font-semibold text-xs">SPACEBAR</kbd> to interrupt
                       </p>
                     </div>
                   )}
-
-                  {/* {currentResponse && (
-                    <div className="mt-3 p-3 bg-white rounded border">
-                      <p className="text-sm text-gray-600 mb-1">Current:</p>
-                      <p className="text-base">{currentResponse}</p>
-                    </div>
-                  )} */}
-
-                  {/* {conversationHistory.length > 0 && (
-                    <div className="mt-4">
-                      <p className="text-sm font-medium mb-2">Conversation History:</p>
-                      <div className="space-y-2 max-h-60 overflow-y-auto">
-                        {conversationHistory.map((msg, idx) => (
-                          <div
-                            key={idx}
-                            className={`p-2 rounded text-sm ${
-                              msg.role === 'user'
-                                ? 'bg-blue-100 text-right'
-                                : 'bg-gray-100 text-left'
-                            }`}
-                          >
-                            <span className="font-semibold">{msg.role === 'user' ? 'You: ' : 'AI: '}</span>
-                            {msg.content}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )} */}
                 </div>
 
-                <div className="p-4 bg-white rounded-lg border">
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-2xl font-semibold">Conversational Narration:</h3>
-                    <Button onClick={handlePlayAudio} variant="outline">
-                      {isPlaying ? "⏸ Stop Audio" : "▶ Play Audio"}
+                <div className="p-6 bg-white rounded-xl border-2 border-gray-300 shadow-md">
+                  <div className="flex justify-between items-center mb-6 pb-4 border-b-2 border-gray-200">
+                    <h3 className="text-2xl font-bold text-gray-900">Document Narration</h3>
+                    <Button
+                      onClick={handlePlayAudio}
+                      className="px-6 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold rounded-lg shadow-lg"
+                    >
+                      {isPlaying ? "⏸ Stop Reading" : "▶ Play Full Narration"}
                     </Button>
                   </div>
-                  <div className="text-lg leading-relaxed whitespace-pre-wrap">
+                  <div className="text-lg leading-relaxed whitespace-pre-wrap text-gray-800 max-h-96 overflow-y-auto p-4 bg-gray-50 rounded-lg">
                     {narration}
                   </div>
                 </div>
@@ -393,6 +416,7 @@ export default function Blindness() {
             )}
           </CardContent>
         </Card>
+        </div>
       </div>
     </>
   );
